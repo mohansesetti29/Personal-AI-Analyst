@@ -1,0 +1,11 @@
+streamlit
+pandas
+numpy
+matplotlib
+seaborn
+langchain==0.1.16
+langchain-community==0.0.32
+langchain-core==0.1.42
+groq
+duckdb
+python-dotenv
