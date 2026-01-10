@@ -8,7 +8,8 @@ import json
 from backend.tools.eda import run_eda
 from backend.agent import generate_hypotheses
 from backend.tools.validate import validate_hypothesis
-from backend.agent import explain_result
+from backend.explainer import explain_result
+
 
 st.set_page_config(page_title="AnalystGPT", layout="wide")
 st.title("📊 AnalystGPT – Personal AI Data Analyst")
