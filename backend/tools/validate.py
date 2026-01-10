@@ -1,43 +1,63 @@
 import pandas as pd
+import numpy as np
+
+def is_binary(series: pd.Series):
+    return series.dropna().nunique() == 2
 
 def validate_hypothesis(df: pd.DataFrame, hypothesis: str):
     result = {}
 
-    if "monthly_spend" in hypothesis and "orders_count" in hypothesis:
-        corr = df["monthly_spend"].corr(df["orders_count"])
-        result["test"] = "Correlation Test"
-        result["correlation"] = corr
-        result["interpretation"] = (
-            "Strong positive relationship"
-            if corr > 0.5 else
-            "Weak or no relationship"
-        )
+    # Identify numeric columns
+    numeric_cols = df.select_dtypes(include=[np.number]).columns.tolist()
 
-    elif "Male" in hypothesis and "Female" in hypothesis:
-        male_avg = df[df["gender"] == "Male"]["monthly_spend"].mean()
-        female_avg = df[df["gender"] == "Female"]["monthly_spend"].mean()
-        result["test"] = "Mean Comparison"
-        result["male_avg_spend"] = male_avg
-        result["female_avg_spend"] = female_avg
-        result["interpretation"] = (
-            "Male customers spend more on average"
-            if male_avg > female_avg else
-            "Female customers spend more on average"
-        )
+    # Identify binary columns (Yes/No or 0/1)
+    binary_cols = [
+        col for col in df.columns
+        if is_binary(df[col])
+    ]
 
-    elif "churned" in hypothesis and "orders_count" in hypothesis:
-        churned_avg = df[df["churned"] == "Yes"]["orders_count"].mean()
-        active_avg = df[df["churned"] == "No"]["orders_count"].mean()
-        result["test"] = "Churn Comparison"
-        result["churned_avg_orders"] = churned_avg
-        result["active_avg_orders"] = active_avg
-        result["interpretation"] = (
-            "Lower order count is associated with churn"
-            if churned_avg < active_avg else
-            "No strong churn signal detected"
-        )
+    # ---- CASE 1: Numeric vs Numeric → Correlation ----
+    for col1 in numeric_cols:
+        for col2 in numeric_cols:
+            if col1 != col2 and col1 in hypothesis and col2 in hypothesis:
+                corr = df[col1].corr(df[col2])
+                result["test"] = "Correlation Analysis"
+                result["columns"] = [col1, col2]
+                result["correlation"] = corr
+                result["interpretation"] = (
+                    "Strong positive relationship"
+                    if corr > 0.5 else
+                    "Weak or no relationship"
+                )
+                return result
 
-    else:
-        result["error"] = "Hypothesis not supported yet"
+    # ---- CASE 2: Binary vs Numeric → Mean Comparison ----
+    for bin_col in binary_cols:
+        for num_col in numeric_cols:
+            if bin_col in hypothesis and num_col in hypothesis:
+                groups = df.groupby(bin_col)[num_col].mean()
+                result["test"] = "Binary vs Numeric Comparison"
+                result["binary_column"] = bin_col
+                result["numeric_column"] = num_col
+                result["group_means"] = groups.to_dict()
+                result["interpretation"] = "Difference detected between groups"
+                return result
 
+    # ---- CASE 3: Binary vs Binary → Rate Comparison ----
+    for col1 in binary_cols:
+        for col2 in binary_cols:
+            if col1 != col2 and col1 in hypothesis and col2 in hypothesis:
+                rate_1 = df[df[col1] == df[col1].unique()[0]][col2].mean()
+                rate_2 = df[df[col1] == df[col1].unique()[1]][col2].mean()
+                result["test"] = "Binary vs Binary Comparison"
+                result["columns"] = [col1, col2]
+                result["rates"] = {
+                    str(df[col1].unique()[0]): rate_1,
+                    str(df[col1].unique()[1]): rate_2,
+                }
+                result["interpretation"] = "Outcome rates differ across groups"
+                return result
+
+    # ---- FALLBACK ----
+    result["error"] = "Hypothesis pattern not supported yet"
     return result
