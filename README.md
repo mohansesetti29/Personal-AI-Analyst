@@ -120,6 +120,72 @@ In short:
 Upload a CSV → AI tells what matters → proves it → tells what action to take.
 
 
+## ❓ Problem Statement
+
+Most individuals and small teams struggle to extract meaningful insights from raw datasets. 
+While tools like Excel, BI dashboards, or basic AI chatbots exist, they often fail in one or more of the following ways:
+
+- They require users to already know *what questions to ask*
+- They generate charts without explaining *why patterns exist*
+- AI chatbots provide confident answers without validating them using real data
+- Insights are descriptive, not actionable
+
+As a result, users are left with:
+- Unvalidated assumptions
+- Misinterpreted correlations
+- Time-consuming manual analysis
+- Decisions based on intuition rather than evidence
+
+There is a clear gap between **raw data** and **decision-ready insights**.
+
+AnalystGPT was built to bridge this gap.
+
+
+## ✅ Solution Overview
+
+AnalystGPT acts as an AI-powered data analyst that:
+
+- Automatically understands the structure and quality of any CSV dataset
+- Generates meaningful, testable hypotheses instead of vague insights
+- Validates each hypothesis using real statistical computation (not guesswork)
+- Explains results in clear business language
+- Suggests practical next steps based on evidence
+
+Instead of asking users to analyze data,
+the system analyzes the data *for them* — correctly and transparently.
+
+## 💡 Use Cases
+
+### 1️⃣ Business & Startup Analysis
+- Analyze customer behavior and churn patterns
+- Identify high-value customers based on spending and engagement
+- Validate assumptions before making marketing or pricing decisions
+- Quickly explore datasets without hiring a full-time analyst
+
+### 2️⃣ Data Science & Machine Learning Education
+- Helps students understand how hypotheses are formed from data
+- Demonstrates real statistical validation instead of black-box AI answers
+- Teaches the difference between correlation, causation, and assumption
+- Acts as a learning companion for EDA and analytics concepts
+
+### 3️⃣ Hackathons & Rapid Prototyping
+- Instantly analyze unfamiliar datasets under time constraints
+- Generate insights faster than manual analysis
+- Impress judges with real computation + AI reasoning
+- Move from data upload to decision insight within minutes
+
+### 4️⃣ Portfolio & Interview Demonstrations
+- Showcases real-world AI system design (not just model training)
+- Demonstrates responsible AI (no hallucinated insights)
+- Highlights integration of LLMs with traditional data analysis
+- Useful for ML Engineer, Data Analyst, and AI Engineer roles
+
+### 5️⃣ Non-Technical Users
+- Enables founders, managers, and domain experts to understand data
+- No need to write SQL, Python, or statistics formulas
+- Converts raw CSV files into understandable business insights
+
+
 ## 🧭 Roadmap
 
 📊 Auto-generate charts (scatter, bar, hist)
