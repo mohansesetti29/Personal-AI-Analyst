@@ -196,6 +196,6 @@ the system analyzes the data *for them* — correctly and transparently.
 
 ## 👤 Author
 
-Developed by: Mohana Krishna Sesetti
-Role: ML Engineer — AI Systems Builder
-LinkedIn: https://www.linkedin.com/in/mohana-krishna-sesetti-a29aa3390/
+- Developed by: Mohana Krishna Sesetti
+- Role: ML Engineer — AI Systems Builder
+- LinkedIn: https://www.linkedin.com/in/mohana-krishna-sesetti-a29aa3390/
